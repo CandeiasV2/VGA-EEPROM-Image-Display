@@ -1,6 +1,11 @@
 from PIL import Image
 
-# Convert pixel colour to 2 bit representation
+# Configure file names
+image1_path = 'finch.png'
+image2_path = 'bird.png'
+output_file_path = 'out.bin'
+
+# Convert pixel colour to 2-bit representation
 def TwoPixelConv(pixel):
   if pixel<64:
     return format(0, '02b')
@@ -11,7 +16,7 @@ def TwoPixelConv(pixel):
   elif pixel<256:
     return format(3, '02b')
 
-# Convert pixel colour to 3 bit representation
+# Convert pixel colour to 3-bit representation
 def ThreePixelConv(pixel):
   if pixel<32:
     return format(0, '03b')
@@ -30,30 +35,38 @@ def ThreePixelConv(pixel):
   elif pixel<256:
     return format(7, '03b')
 
+# Opening images
+image1 = Image.open(image1_path)
+pixels1 = image1.load()
+image2 = Image.open(image2_path)
+pixels2 = image2.load()
 
-file_path = 'bird.png'
-output_file_path = 'out.bin'
-
-image = Image.open(file_path)
-pixels = image.load()
-
-# Checking correct image resolution 
-if image.size[0]!=100 or image.size[1]!=75:
-  print(f"ERROR: '{file_path}' does not have an image resolution of 100x75!")
+# Checking correct image resolutions 
+if image1.size[0]!=100 or image1.size[1]!=75:
+  print(f"ERROR: '{image1_path}' does not have an image resolution of 100x75!")
+  exit()
+if image2.size[0]!=100 or image2.size[1]!=75:
+  print(f"ERROR: '{image2_path}' does not have an image resolution of 100x75!")
   exit()
 
-# Create the output file and save it in binary
+# Create the output file and save it as binary
 out_file = open(output_file_path, "wb")
 # For the range of the EEPROM
 for y in range(256):
   for x in range(128):
     try:
-      # Save the pixel value as bytes to the output file
-      hex_value = int(TwoPixelConv(pixels[x,y][2]) + ThreePixelConv(pixels[x,y][1]) + ThreePixelConv(pixels[x,y][0]), 2)
-      out_file.write(hex_value.to_bytes(1, byteorder='big'))
+      if y<128:
+        # Save the pixel value as bytes to the output file
+        hex_value = int(TwoPixelConv(pixels1[x,y][2]) + ThreePixelConv(pixels1[x,y][1]) + ThreePixelConv(pixels1[x,y][0]), 2)
+        out_file.write(hex_value.to_bytes(1, byteorder='big'))
+      else:
+        # Save the pixel value as bytes to the output file
+        hex_value = int(TwoPixelConv(pixels2[x,y-128][2]) + ThreePixelConv(pixels2[x,y-128][1]) + ThreePixelConv(pixels2[x,y-128][0]), 2)
+        out_file.write(hex_value.to_bytes(1, byteorder='big'))
     except IndexError:
       # If the pixel value does not exist, save as byte 0
       out_file.write(bytes([0]))
 
-print("Successfully converted image to binary file!")
+# Print closing statement 
+print("Successfully converted images to a binary file!")
 out_file.close()
