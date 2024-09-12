@@ -44,4 +44,4 @@ There are several future enhancements planned for this project:
 ---
 
 ```markdown
-![Photo of PCB](https://github.com/CandeiasV2/VideoCard/blob/main/Photo%20of%20PCB.jpg)
+![Photo of PCB](https://raw.githubusercontent.com/CandeiasV2/VideoCard/main/Photo%20of%20PCB.jpg)
