@@ -28,6 +28,7 @@ This expanded palette allows for greater color depth while maintaining the same 
 The project was initially prototyped on a breadboard to test the circuit. After the design was confirmed to be working, I transitioned to designing and printing a custom PCB using an online service. This made the circuit more reliable and compact compared to the breadboard version.
 
 ![PCB Design](https://github.com/CandeiasV2/VideoCard/blob/main/PCB_VideoCard/3D_VideoCard_PCB_FrontAngle.png)
+![Photo of PCB](https://github.com/CandeiasV2/VideoCard/blob/main/Photo%20of%20PCB.jpg)
 
 ## Generating and Uploading Images to the EEPROM
 In Ben Eater’s video, Photoshop was used to convert images to the defined 64-color palette, and Python was then used to convert the image to a .bin file, which was uploaded to the EEPROM using a programmer. Since I did not have access to Photoshop or an EEPROM programmer, I created a Python script to convert each pixel of a 100x75 image to one of the 256 possible values, and then used an Arduino Mega to upload the image to the EEPROM. The Arduino Mega was chosen due to its higher memory capacity, allowing one image to be saved and loaded into the EEPROM at a time. This process has some limitations: the Mega only has enough memory to handle one image at a time, and it takes approximately 1 minute and 20 seconds to program a single image.
@@ -40,8 +41,3 @@ There are several future enhancements planned for this project:
 3. **Better EEPROM Quality:** Purchasing EEPROM chips from reputable sources may help reduce screen artifacts and improve the quality of the displayed image.
 4. **Improved Color Conversion Algorithm:** The current algorithm used to convert pixel colors to a 256-color palette is relatively simple, based on dividing the color range into equal parts. A more sophisticated algorithm could be developed to better map image colors to the 256-color space, optimizing the visual output. This would help take fuller advantage of the available color palette.
 5. **Faster EEPROM Programming:** The speed of EEPROM programming could be improved by using Port Manipulation on the Arduino. This method involves manipulating the microcontroller’s port registers directly, allowing for faster and more efficient control of the I/O pins compared to the higher-level `digitalWrite()` functions.
-
----
-
-```markdown
-![Photo of PCB](https://raw.githubusercontent.com/CandeiasV2/VideoCard/main/Photo%20of%20PCB.jpg)
