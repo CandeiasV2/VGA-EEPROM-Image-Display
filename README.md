@@ -4,7 +4,7 @@ This project is inspired by [Ben Eater’s](https://eater.net/vga) VGA display p
 ## Dual Image Display
 Upgrading the project to support two images required only minor adjustments, as the full address space of the AT28C256 EEPROM was not used in the original project. The EEPROM has 15 address pins (A0-A14), but in the original video, the most significant address pin, A14, was left unused. By utilizing this pin, the EEPROM was effectively divided in half, with each half storing a separate image. Controlling which image is displayed is simple: toggling the A14 signal between logic 0 and logic 1 selects one of the two images. This toggle can be controlled automatically using a fixed timing mechanism or manually by the user.
 
-![Dual Image Display Example](https://github.com/CandeiasV2/VideoCard/blob/main/Dual%20Image.gif)
+![Dual Image Display Example](https://github.com/CandeiasV2/VideoCard/blob/main/Dual_Image.gif)
 
 ## Result of the Finch and Bird Images
 Here are photos showing the result of the Finch and Bird images displayed on the VGA monitor. These photos demonstrate how the images look after being processed and stored on the EEPROM.
