@@ -4,13 +4,13 @@ This project is inspired by [Ben Eater’s](https://eater.net/vga) VGA display p
 ## Dual Image Display
 Upgrading the project to support two images required only minor adjustments, as the full address space of the AT28C256 EEPROM was not used in the original project. The EEPROM has 15 address pins (A0-A14), but in the original video, the most significant address pin, A14, was left unused. By utilizing this pin, the EEPROM was effectively divided in half, with each half storing a separate image. Controlling which image is displayed is simple: toggling the A14 signal between logic 0 and logic 1 selects one of the two images. This toggle can be controlled automatically using a fixed timing mechanism or manually by the user.
 
-![Dual Image Display Example](https://github.com/CandeiasV2/VideoCard/blob/main/Dual_Image.gif)
+![Dual Image Display Example](https://github.com/CandeiasV2/VGA-EEPROM-Image-Display/blob/main/Dual_Image.gif)
 
 ## Result of the Finch and Bird Images
 Here are photos showing the result of the Finch and Bird images displayed on the VGA monitor. These photos demonstrate how the images look after being processed and stored on the EEPROM.
 
-![Finch Image Result](https://github.com/CandeiasV2/VideoCard/blob/main/Finch%20Result.jpg)
-![Bird Image Result](https://github.com/CandeiasV2/VideoCard/blob/main/Bird%20Result.jpg)
+![Finch Image Result](https://github.com/CandeiasV2/VGA-EEPROM-Image-Display/blob/main/Finch%20Result.jpg)
+![Bird Image Result](https://github.com/CandeiasV2/VGA-EEPROM-Image-Display/blob/main/Bird%20Result.jpg)
 
 ## Image Control Mechanism
 The control mechanism for switching between images offers three modes, selected via sliding switches: astable, monostable, and bistable. In the astable mode, the image changes at regular intervals using an adjustable clock built with a 555 timer chip and a potentiometer to vary the frequency. The monostable mode uses a set resistor and capacitor value to switch images based on a fixed timing. Finally, the bistable mode allows the user to manually change the displayed image by pressing a button that toggles between the two states.
@@ -27,8 +27,8 @@ This expanded palette allows for greater color depth while maintaining the same 
 ## Building the Project
 The project was initially prototyped on a breadboard to test the circuit. After the design was confirmed to be working, I transitioned to designing and printing a custom PCB using an online service. This made the circuit more reliable and compact compared to the breadboard version.
 
-![PCB Design](https://github.com/CandeiasV2/VideoCard/blob/main/PCB_VideoCard/3D_VideoCard_PCB_FrontAngle.png)
-![Photo of PCB](https://github.com/CandeiasV2/VideoCard/blob/main/Photo%20of%20PCB.jpg)
+![PCB Design](https://github.com/CandeiasV2/VGA-EEPROM-Image-Display/blob/main/PCB_VideoCard/3D_VideoCard_PCB_FrontAngle.png)
+![Photo of PCB](https://github.com/CandeiasV2/VGA-EEPROM-Image-Display/blob/main/Photo%20of%20PCB.jpg)
 
 ## Generating and Uploading Images to the EEPROM
 In Ben Eater’s video, Photoshop was used to convert images to the defined 64-color palette, and Python was then used to convert the image to a .bin file, which was uploaded to the EEPROM using a programmer. Since I did not have access to Photoshop or an EEPROM programmer, I created a Python script to convert each pixel of a 100x75 image to one of the 256 possible values, and then used an Arduino Mega to upload the image to the EEPROM. The Arduino Mega was chosen due to its higher memory capacity, allowing one image to be saved and loaded into the EEPROM at a time. This process has some limitations: the Mega only has enough memory to handle one image at a time, and it takes approximately 1 minute and 20 seconds to program a single image.
